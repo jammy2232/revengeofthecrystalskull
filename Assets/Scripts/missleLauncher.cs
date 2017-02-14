@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class missleLauncher : MonoBehaviour {
 
-	public GameObject missleType;
+	public RocketHoming missleType;
 	public float rateOffire;
 	public Transform target;
 
@@ -29,9 +29,12 @@ public class missleLauncher : MonoBehaviour {
 
 		if (timer > rateOffire) {
 			timer = 0;
-			GameObject missle = Instantiate (missleType, transform.position, transform.rotation);
-			missle.GetComponent<RocketHoming> ().target = target;
+			RocketHoming missle = missleType;
+			missle.transform.position = transform.position;
+			missle.transform.rotation = transform.rotation;
+			Instantiate (missle); 
 		}
+
 		
 	}
 

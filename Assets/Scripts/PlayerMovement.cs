@@ -70,10 +70,10 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
 
 		// Thrusters Controls
-		if (Input.GetKeyDown (KeyCode.A)) {
+		if (Input.GetKeyDown (KeyCode.D)) {
 			thruster1Force = thrusterDefaultForce;
 			thruster1Rocket.Play();
-		} else if(Input.GetKeyUp(KeyCode.A)) {
+		} else if(Input.GetKeyUp(KeyCode.D)) {
 			thruster1Force = 0;
 			thruster1Rocket.Stop();
 		}
@@ -86,10 +86,10 @@ public class PlayerMovement : MonoBehaviour {
 			thruster2Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.D)) {
+		if (Input.GetKeyDown (KeyCode.A)) {
 			thruster3Force = thrusterDefaultForce;
 			thruster3Rocket.Play();
-		} else if(Input.GetKeyUp(KeyCode.D)) {
+		} else if(Input.GetKeyUp(KeyCode.A)) {
 			thruster3Force = 0;
 			thruster3Rocket.Stop();
 		}

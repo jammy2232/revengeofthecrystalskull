@@ -9,6 +9,7 @@ public class rocketinput : MonoBehaviour {
     public KeyCode leftControl;
     public KeyCode rightControl;
     public KeyCode thrusterControl;
+    public ParticleSystem particles;
 
 
 	// Use this for initialization
@@ -33,6 +34,12 @@ public class rocketinput : MonoBehaviour {
         if (Input.GetKey(thrusterControl))
         {
             rocketBody.AddForce(rocketBody.transform.forward * defaultForceMultiplier * Time.deltaTime, ForceMode.Force);
-        }       
-	}
+            particles.Play();
+        }
+
+        if (!(Input.GetKey(thrusterControl)))
+        {
+            particles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+        }
+    }
 }

@@ -7,7 +7,7 @@ public class RocketHoming : MonoBehaviour {
 	// Components required to add the basic Homing rocket functionality
 	public ParticleSystem thruster;
 	public ParticleSystem Explotion;
-	public Transform target;
+	public PlayerMovement target;
 
 	// Private components for calculations
 	private Transform rocketT;
@@ -31,11 +31,13 @@ public class RocketHoming : MonoBehaviour {
 		rocketRB = GetComponent<Rigidbody> ();
 		rocketT = GetComponent<Transform> ();
 
-		Explotion.Stop ();
+		target = FindObjectOfType<PlayerMovement>();
+
 		thruster.Stop ();
 
 		timer = 0;
 		startInhibit = true;
+		thruster.Play ();
 
 	}
 	
@@ -45,7 +47,7 @@ public class RocketHoming : MonoBehaviour {
 		if (startInhibit == false) 
 		{
 			// Tracking the player
-			targetTradjectory = target.position - rocketT.position;
+			targetTradjectory = target.transform.position - rocketT.position;
 
 			// Time it's able to track the player
 			if (timer < lockOnTime) 
@@ -72,7 +74,7 @@ public class RocketHoming : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.name == "PlayerShip") {
+		if (other.tag == "Player") {
 			Instantiate(Explotion, transform.position,Quaternion.identity);
 			Destroy (gameObject);
 		}

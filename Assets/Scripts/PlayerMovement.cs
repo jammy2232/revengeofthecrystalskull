@@ -21,20 +21,20 @@ public class PlayerMovement : MonoBehaviour {
 	private float thruster3Force;
 	private float thruster4Force;
 
-	public float RotatorDefaultForce;
+	//public float RotatorDefaultForce;
 
-	public ParticleSystem RotatorRocketL1;
-	public ParticleSystem RotatorRocketL2;
-	public ParticleSystem RotatorRocketR1;
-	public ParticleSystem RotatorRocketR2;
+	//public ParticleSystem RotatorRocketL1;
+	//public ParticleSystem RotatorRocketL2;
+	//public ParticleSystem RotatorRocketR1;
+	//public ParticleSystem RotatorRocketR2;
 
-	private Vector3 RotatorDir;
+	//private Vector3 RotatorDir;
 
-	public Rigidbody Rotator1;
-	public Rigidbody Rotator2;
+	//public Rigidbody Rotator1;
+	//public Rigidbody Rotator2;
 
-	private float Rotator1Force;
-	private float Rotator2Force;
+	//private float Rotator1Force;
+	//private float Rotator2Force;
 
 	// Use this for initialization
 	void Start () {
@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour {
 		thruster3Rocket.Stop();
 		thruster4Rocket.Stop();
 
+		/*
 		RotatorDir = new Vector3(0,1,0);
 
 		Rotator1Force = 0.0f;
@@ -63,6 +64,7 @@ public class PlayerMovement : MonoBehaviour {
 		RotatorRocketL2.Stop();
 		RotatorRocketR1.Stop();
 		RotatorRocketR2.Stop();
+		*/
 	
 	}
 
@@ -78,10 +80,10 @@ public class PlayerMovement : MonoBehaviour {
 			thruster1Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.W)) {
+		if (Input.GetKeyDown (KeyCode.S)) {
 			thruster2Force = thrusterDefaultForce;
 			thruster2Rocket.Play();
-		} else if(Input.GetKeyUp(KeyCode.W)) {
+		} else if(Input.GetKeyUp(KeyCode.S)) {
 			thruster2Force = 0;
 			thruster2Rocket.Stop();
 		}
@@ -94,15 +96,16 @@ public class PlayerMovement : MonoBehaviour {
 			thruster3Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.S)) {
+		if (Input.GetKeyDown (KeyCode.W)) {
 			thruster4Force = thrusterDefaultForce;
 			thruster4Rocket.Play();
-		} else if(Input.GetKeyUp(KeyCode.S)) {
+		} else if(Input.GetKeyUp(KeyCode.W)) {
 			thruster4Force = 0;
 			thruster4Rocket.Stop();
 		}
 
 		// Rotator Controls
+		/*
 		if (Input.GetKeyDown (KeyCode.Q)) {
 			Rotator1Force = RotatorDefaultForce;
 			Rotator2Force = -RotatorDefaultForce;
@@ -114,6 +117,7 @@ public class PlayerMovement : MonoBehaviour {
 			RotatorRocketL1.Stop();
 			RotatorRocketL2.Stop();
 		}
+
 
 		if (Input.GetKeyDown (KeyCode.E)) {
 			Rotator1Force = -RotatorDefaultForce;
@@ -127,6 +131,8 @@ public class PlayerMovement : MonoBehaviour {
 			RotatorRocketR2.Stop();
 		}
 
+		*/
+
 	}
 
 	// Update is called once per frame
@@ -137,8 +143,8 @@ public class PlayerMovement : MonoBehaviour {
 		playerShip.AddRelativeForce (thruster3Dir * thruster3Force);
 		playerShip.AddRelativeForce (thruster4Dir * thruster4Force);
 
-		Rotator1.AddRelativeForce (RotatorDir * Rotator1Force);
-		Rotator2.AddRelativeForce (RotatorDir * Rotator2Force);
+		// Rotator1.AddRelativeForce (RotatorDir * Rotator1Force);
+		// Rotator2.AddRelativeForce (RotatorDir * Rotator2Force);
 
 	}
 

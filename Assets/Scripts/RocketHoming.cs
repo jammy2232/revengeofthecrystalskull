@@ -68,8 +68,6 @@ public class RocketHoming : MonoBehaviour {
 			}
 		}
 
-		Debug.Log (timer);
-
 	}
 
 	void OnTriggerEnter (Collider other)

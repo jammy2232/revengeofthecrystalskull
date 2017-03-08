@@ -6,13 +6,19 @@ public class DoorController : MonoBehaviour {
 
 	public enum Type { ENTRANCETOP, ENTRANCEBOTTOM, EXITTOP, EXITBOTTOM };
 	public Type doorType;
+
 	private float mxMod;
 	private float myMod;
+
+	private float startingPosX;
+	private float startingPosY;
+
 	[HideInInspector]
 	public bool ready = true;
 
 	void Start()
 	{
+		
 		switch (doorType) {
 		case Type.ENTRANCETOP:
 			mxMod = -1.0f;
@@ -31,10 +37,15 @@ public class DoorController : MonoBehaviour {
 			myMod = -1.0f;
 			break;
 		}
+
+		startingPosX = Mathf.Abs(transform.localPosition.x);
+		startingPosY = Mathf.Abs(transform.localPosition.y);
+
 	}
 
 	public void Open()
 	{
+
 		if (ready == true) {
 			ready = false;
 			StartCoroutine ("OpenDoorMovement");
@@ -43,11 +54,14 @@ public class DoorController : MonoBehaviour {
 
 	IEnumerator OpenDoorMovement ()
 	{
-		while (Mathf.Abs(transform.localPosition.y) < 1.7f) 
+
+		while (Mathf.Abs(transform.localPosition.y) < (startingPosY + gameObject.transform.localScale.y*0.75f)) 
 		{
-			if (Mathf.Abs(transform.localPosition.x) < 2.6f) {
+			if (Mathf.Abs(transform.localPosition.x) < (startingPosX + gameObject.transform.localScale.x*0.5f)) {
 				transform.localPosition += new Vector3 (mxMod * 0.1f, 0.0f, 0.0f) * Time.deltaTime;
-			} else {
+			} 
+			else 
+			{
 				transform.localPosition += new Vector3 (0.0f, myMod * 0.3f, 0.0f) * Time.deltaTime;
 			}
 			yield return null;
@@ -67,9 +81,9 @@ public class DoorController : MonoBehaviour {
 
 	IEnumerator CloseDoorMovement ()
 	{
-		while (Mathf.Abs(transform.localPosition.x) > 2.5f) 
+		while (Mathf.Abs(transform.localPosition.x) > (startingPosX)) 
 		{
-			if (Mathf.Abs(transform.localPosition.y) > 0.625f) {
+				if (Mathf.Abs(transform.localPosition.y) > (startingPosY)) {
 				transform.localPosition += new Vector3 (0.0f, myMod * -0.3f, 0.0f) * Time.deltaTime;
 			} else {
 				transform.localPosition += new Vector3 (mxMod * -0.1f, 0.0f, 0.0f) * Time.deltaTime;
@@ -82,3 +96,5 @@ public class DoorController : MonoBehaviour {
 	}
 
 }
+
+

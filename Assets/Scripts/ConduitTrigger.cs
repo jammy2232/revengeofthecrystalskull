@@ -9,7 +9,7 @@ public class ConduitTrigger : MonoBehaviour {
 
 	void OnTriggerEnter()
 	{
-		DoorsOnTime(20);
+		DoorsOnTime(10);
 	}
 
 	public void DoorsOnTime(int timeRequired)

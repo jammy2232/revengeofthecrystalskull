@@ -10,6 +10,8 @@ public class Button : MonoBehaviour {
 	private bool flash;
 	private bool colourSelect;
 
+	private bool lockout = false;
+
 	private Material button;
 	private Color currentColour;
 
@@ -60,7 +62,11 @@ public class Button : MonoBehaviour {
 	public void DoorsOnTime(int timeRequired)
 	{
 		timeReq = timeRequired;
-		StartCoroutine ("DoorTimer");
+		if (lockout == false) 
+		{
+			lockout = true;
+			StartCoroutine ("DoorTimer");
+		}
 	}
 
 
@@ -77,6 +83,9 @@ public class Button : MonoBehaviour {
 		yield return new WaitForSeconds (timeReq);
 
 		conduitToBeControlled.CloseExt ();
+
+		lockout = false;
+
 	}
 
 }

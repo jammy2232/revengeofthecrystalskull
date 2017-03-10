@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class TESTPLAYER : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	void OnParticleCollision(GameObject other)
+	{
+
+		//Vector3 direction = transform.position - other.transform.position;
+		//direction = new Vector3 (direction.x, direction.y, 0.0f);
+
+		Debug.Log ("Ouchy ouchy");
+
+		//gameObject.GetComponent<Rigidbody> ().AddForce (direction * 100.0f);
+
 	}
 }

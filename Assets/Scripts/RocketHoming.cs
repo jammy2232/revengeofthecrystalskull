@@ -7,7 +7,7 @@ public class RocketHoming : MonoBehaviour {
 	// Components required to add the basic Homing rocket functionality
 	public ParticleSystem thruster;
 	public ParticleSystem Explotion;
-	public PlayerMovement target;
+	public TESTPLAYER target;
 
 	// Private components for calculations
 	private Transform rocketT;
@@ -31,7 +31,7 @@ public class RocketHoming : MonoBehaviour {
 		rocketRB = GetComponent<Rigidbody> ();
 		rocketT = GetComponent<Transform> ();
 
-		target = FindObjectOfType<PlayerMovement>();
+		target = FindObjectOfType<TESTPLAYER>();
 
 		thruster.Stop ();
 

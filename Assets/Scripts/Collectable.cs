@@ -9,16 +9,4 @@ public class Collectable : MonoBehaviour {
 		transform.RotateAround (transform.position, transform.up, 90.0f*Time.deltaTime);
 	}
 
-	void OnTiggerEnter(Collider other)
-	{
-
-		if (other.tag == "Player")
-		{
-
-			// Do stuff;
-
-		}
-
-	}
-
 }

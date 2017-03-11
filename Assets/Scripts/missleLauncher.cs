@@ -18,6 +18,7 @@ public class missleLauncher : MonoBehaviour {
 
 		timer = 0;
 		spawnLocation = transform.position;
+		target = FindObjectOfType<TESTPLAYER> ().transform;
 	}
 	
 	// Update is called once per frame

@@ -7,9 +7,12 @@ public class ConduitTrigger : MonoBehaviour {
 	public ConduitController conduitToBeControlled;
 	private int timeReq = 0;
 
-	void OnTriggerEnter()
+	void OnTriggerEnter(Collider other)
 	{
-		DoorsOnTime(10);
+		if (other.tag == "Player")
+		{
+			DoorsOnTime (10);
+		}
 	}
 
 	public void DoorsOnTime(int timeRequired)

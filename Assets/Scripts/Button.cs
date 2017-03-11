@@ -10,6 +10,8 @@ public class Button : MonoBehaviour {
 	private bool flash;
 	private bool colourSelect;
 
+	private bool lockout = false;
+
 	private Material button;
 	private Color currentColour;
 
@@ -50,17 +52,29 @@ public class Button : MonoBehaviour {
 	}
 
 
-	void OnTriggerEnter()
+	void OnTriggerEnter(Collider other)
 	{
-		DoorsOnTime(10);
-		currentColour = Color.green;
+		if (other.tag == "Player")
+		{
+			DoorsOnTime (10);
+			currentColour = Color.green;
+		}
 	}
 
 
 	public void DoorsOnTime(int timeRequired)
 	{
 		timeReq = timeRequired;
-		StartCoroutine ("DoorTimer");
+		if (lockout == false) 
+		{
+			lockout = true;
+			StartCoroutine ("DoorTimer");
+		}
+	}
+
+	public void GoGreen()
+	{
+		currentColour = Color.green;
 	}
 
 
@@ -77,6 +91,9 @@ public class Button : MonoBehaviour {
 		yield return new WaitForSeconds (timeReq);
 
 		conduitToBeControlled.CloseExt ();
+
+		lockout = false;
+
 	}
 
 }

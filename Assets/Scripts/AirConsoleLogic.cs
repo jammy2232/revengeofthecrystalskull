@@ -7,18 +7,10 @@ using Newtonsoft.Json.Linq;
 
 public class AirConsoleLogic : MonoBehaviour {
 
-	[HideInInspector]
-	public bool thruster1;
-	[HideInInspector]
-	public bool thruster2;
-	[HideInInspector]
-	public bool thruster3;
-	[HideInInspector]
-	public bool thruster4;
-
+	public int numberOfPlayers;
 	public Text uiText;
 
-	public int numberOfPlayers = 4;
+	private bool[] thrusters;
 
 #if !DISABLE_AIRCONSOLE 
 
@@ -39,10 +31,10 @@ public class AirConsoleLogic : MonoBehaviour {
 	/// <param name="device_id">The device_id that connected</param>
 	void OnConnect (int device_id) {
 		if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0) {
-			if (AirConsole.instance.GetControllerDeviceIds ().Count >= numberOfPlayers) {
+			if (AirConsole.instance.GetControllerDeviceIds ().Count == numberOfPlayers) {
 				StartGame ();
 			} else {
-				uiText.text = "NEED MORE PLAYERS";
+//				uiText.text = "NEED MORE PLAYERS";
 			}
 		}
 	}
@@ -58,7 +50,7 @@ public class AirConsoleLogic : MonoBehaviour {
 				StartGame ();
 			} else {
 				AirConsole.instance.SetActivePlayers (0);
-				uiText.text = "PLAYER LEFT - NEED MORE PLAYERS";
+//				uiText.text = "PLAYER LEFT - NEED MORE PLAYERS";
 			}
 		}
 	}
@@ -71,23 +63,20 @@ public class AirConsoleLogic : MonoBehaviour {
 	void OnMessage (int device_id, JToken data) {
 		int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber (device_id);
 		if (active_player != -1) {
-			if (active_player == 0) {
-				thruster1 = (bool)data["move"];
-			}
-			if (active_player == 1) {
-				thruster2 = (bool)data["move"];
-			}
-			if (active_player == 2) {
-				thruster3 = (bool)data["move"];
-			}
-			if (active_player == 3) {
-				thruster4 = (bool)data["move"];
-			}
+			thrusters[active_player] = (bool)data["move"];
 		}
 	}
 
 	void StartGame () {
 		AirConsole.instance.SetActivePlayers (numberOfPlayers);
+	}
+
+	void Start(){
+		thrusters = new bool[numberOfPlayers];
+	}
+
+	public bool[] GetThrusters() {
+		return thrusters;
 	}
 
 	void OnDestroy () {

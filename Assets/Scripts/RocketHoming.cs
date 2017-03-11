@@ -73,9 +73,16 @@ public class RocketHoming : MonoBehaviour {
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "Player") {
-			Instantiate(Explotion, transform.position,Quaternion.identity);
+			Vector3 pushBackForce = transform.position - other.transform.position;
+			other.GetComponent<Rigidbody> ().AddForce (-pushBackForce.normalized*200.0f);
+		}
+
+		if (other.tag != "Button")
+		{
+			Instantiate (Explotion, transform.position, Quaternion.identity);
 			Destroy (gameObject);
 		}
+
 	}
 
 	void FixedUpdate()

@@ -27,7 +27,8 @@ public class missleLauncher : MonoBehaviour {
 
 		timer += 1 * Time.deltaTime;
 
-		if (timer > rateOffire) {
+		if (timer > rateOffire) 
+		{
 			timer = 0;
 			RocketHoming missle = missleType;
 			missle.transform.position = transform.position;

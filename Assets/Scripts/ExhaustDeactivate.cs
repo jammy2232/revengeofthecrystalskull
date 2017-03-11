@@ -62,6 +62,11 @@ public class ExhaustDeactivate : MonoBehaviour {
 		}
 		}	
 
+		public void GoGreen()
+		{
+			currentColour = Color.green;
+		}
+
 		IEnumerator DisableExhaust() // example trigger 
 		{
 		exhaustPortToBeControlled.turnExhaustOff ();

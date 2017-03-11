@@ -11,6 +11,7 @@ public class CameraFollow : MonoBehaviour {
 	void Start () {
 
 		temp = FindObjectOfType<TESTPLAYER> ();
+		transform.position = temp.transform.position + new Vector3 (0.0f, 0.0f, -10.0f);
 		cameraPos = temp.transform.position - transform.position;
 		
 	}

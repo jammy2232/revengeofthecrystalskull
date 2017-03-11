@@ -52,10 +52,13 @@ public class Button : MonoBehaviour {
 	}
 
 
-	void OnTriggerEnter()
+	void OnTriggerEnter(Collider other)
 	{
-		DoorsOnTime(10);
-		currentColour = Color.green;
+		if (other.tag == "Player")
+		{
+			DoorsOnTime (10);
+			currentColour = Color.green;
+		}
 	}
 
 
@@ -67,6 +70,11 @@ public class Button : MonoBehaviour {
 			lockout = true;
 			StartCoroutine ("DoorTimer");
 		}
+	}
+
+	public void GoGreen()
+	{
+		currentColour = Color.green;
 	}
 
 

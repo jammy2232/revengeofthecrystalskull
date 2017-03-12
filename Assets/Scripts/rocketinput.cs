@@ -9,7 +9,11 @@ public class rocketinput : MonoBehaviour {
     public KeyCode leftControl;
     public KeyCode rightControl;
     public KeyCode thrusterControl;
-    public int controlDefault;
+	[SerializeField]
+    private int controlDefault;
+
+	AirConsoleLogic airConsoleReference;
+
     Vector3 startingPos;
     float leftLimit;
     float rightLimit;
@@ -21,13 +25,16 @@ public class rocketinput : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		userControls = FindObjectOfType<GameManager> ().GetComponent<AirConsoleLogic> ().GetThrusters();
+		airConsoleReference = FindObjectOfType<GameManager> ().GetComponent<AirConsoleLogic> ();
 
-		for (int i = 0; i < userControls.Length; i++) {
-			Debug.Log (i + " = " + userControls [i]);
+		if (airConsoleReference != null)
+		{
+			userControls = airConsoleReference.GetThrusters ();
 		}
-
+			
         rocketBody = GetComponent<Rigidbody>();
+
+
         if (controlDefault == 1)
         {
             leftControl = KeyCode.LeftArrow;
@@ -36,9 +43,9 @@ public class rocketinput : MonoBehaviour {
         }
         else if (controlDefault == 2)
         {
-            leftControl = KeyCode.A;
+			leftControl = KeyCode.A;
             rightControl = KeyCode.D;
-            thrusterControl = KeyCode.W;
+			thrusterControl = KeyCode.W;
         }
         else if (controlDefault == 3)
         {
@@ -58,32 +65,43 @@ public class rocketinput : MonoBehaviour {
         rightLimit = startingPos.y + 90;
 
     }
-	
+
+
 	// Update is called once per frame
 	void Update ()
-    {
-		if (userControls[1] != null) {
+	{
 
-			//left arrow is 276, right arrow 275, up arrow 273
-			if (Input.GetKey (leftControl) && rocketBody.transform.localRotation.eulerAngles.y <= rightLimit) {
+
+		// Getting the thruster details again - I don't know why we have to do this. If I don't reference to userControls[1] doesn't work - This is a strange bug perhaps. 
+		userControls = airConsoleReference.GetThrusters ();
+
+		if (airConsoleReference == null)
+		{
+			airConsoleReference = FindObjectOfType<GameManager> ().GetComponent<AirConsoleLogic> ();
+		}
+
+		//left arrow is 276, right arrow 275, up arrow 273
+
+		// Still to add in thruster angle and particle effects when firing.
+
+			if (Input.GetKey (leftControl) && rocketBody.transform.localRotation.eulerAngles.y <= rightLimit)
+			{
 				rocketBody.transform.Rotate (Vector3.left * Time.deltaTime * rotateSpeed);
 			}
 
-			if (Input.GetKey (rightControl) && rocketBody.transform.localRotation.eulerAngles.y >= leftLimit) {
+			if (Input.GetKey (rightControl) && rocketBody.transform.localRotation.eulerAngles.y >= leftLimit)
+			{
 				rocketBody.transform.Rotate (Vector3.right * Time.deltaTime * rotateSpeed);
 			}
-
-			/*
-			if (Input.GetKey (thrusterControl) || userControls [controlDefault - 1]) {
+				
+			if (Input.GetKey (thrusterControl) || userControls [controlDefault - 1])
+			{
 				rocketBody.AddForce (rocketBody.transform.forward * defaultForceMultiplier * Time.deltaTime, ForceMode.Force);
 			}
-			*/
 
-			// Debug.Log (controlDefault + " user = " + userControls [controlDefault - 1]);
-		}
 
-		// add message to screen waiting for players
 
-    }
+	}
+
+
 }
-// 

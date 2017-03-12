@@ -51,8 +51,6 @@ public class GameManager : MonoBehaviour {
 		int minutes = (int)((Time.timeSinceLevelLoad/60.0f)%60); // minutes
 		gameTimerText.text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
 			
-
-
 		if (skull.collected == true && startEnd.playerPresent == true)
 		{
 			// End State

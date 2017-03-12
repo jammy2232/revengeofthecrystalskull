@@ -14,11 +14,31 @@ public class AirConsoleLogic : MonoBehaviour {
 
 #if !DISABLE_AIRCONSOLE 
 
-	void Awake () {
+	void Awake () 
+	{
+		
 		AirConsole.instance.onMessage += OnMessage;
 		AirConsole.instance.onConnect += OnConnect;
 		AirConsole.instance.onDisconnect += OnDisconnect;
+
 	}
+
+	void Start()
+	{
+		
+		thrusters = new bool[numberOfPlayers]; // Setting up a bool array with the numnber of players required
+
+		if (AirConsole.instance.GetControllerDeviceIds ().Count < numberOfPlayers)
+		{
+			uiText.text = "AWAITING FOR MORE PLAYERS";
+		} 
+		else
+		{
+			uiText.text = "";
+		}
+
+	}
+		
 
 	/// <summary>
 	/// We start the game if 4 players are connected and the game is not already running (activePlayers == null).
@@ -29,28 +49,49 @@ public class AirConsoleLogic : MonoBehaviour {
 	/// 
 	/// </summary>
 	/// <param name="device_id">The device_id that connected</param>
-	void OnConnect (int device_id) {
-		if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0) {
-			if (AirConsole.instance.GetControllerDeviceIds ().Count == numberOfPlayers) {
-				StartGame ();
-			} else {
-//				uiText.text = "NEED MORE PLAYERS";
-			}
+
+
+	void OnConnect (int device_id)
+	{
+		//if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0) {
+
+		if (AirConsole.instance.GetControllerDeviceIds ().Count < numberOfPlayers)
+		{
+			uiText.text = "AWAITING FOR MORE PLAYERS";
+		} 
+		else 
+		{
+			uiText.text = "";
+			StartGame ();
 		}
+
+		//}
 	}
+
+
 
 	/// <summary>
 	/// If the game is running and one of the active players leaves, we reset the game.
 	/// </summary>
 	/// <param name="device_id">The device_id that has left.</param>
-	void OnDisconnect (int device_id) {
+
+
+
+	void OnDisconnect (int device_id)
+	{
 		int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber (device_id);
-		if (active_player != -1) {
-			if (AirConsole.instance.GetControllerDeviceIds ().Count >= numberOfPlayers) {
+
+		if (active_player != -1)
+		{
+			if (AirConsole.instance.GetControllerDeviceIds ().Count >= numberOfPlayers) 
+			{
+				uiText.text = "";
 				StartGame ();
-			} else {
+			}
+			else 
+			{
 				AirConsole.instance.SetActivePlayers (0);
-//				uiText.text = "PLAYER LEFT - NEED MORE PLAYERS";
+				uiText.text = "PLAYER LEFT! AWAITING MORE PLAYERS";
 			}
 		}
 	}
@@ -60,31 +101,44 @@ public class AirConsoleLogic : MonoBehaviour {
 	/// </summary>
 	/// <param name="from">From.</param>
 	/// <param name="data">Data.</param>
-	void OnMessage (int device_id, JToken data) {
+
+
+	void OnMessage (int device_id, JToken data)
+	{
 		int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber (device_id);
-		if (active_player != -1) {
+
+		if (active_player != -1) // Check it's a valid player?
+		{
 			thrusters[active_player] = (bool)data["move"];
 		}
 	}
 
-	void StartGame () {
-		AirConsole.instance.SetActivePlayers (numberOfPlayers);
+
+	void StartGame () 
+	{
+		AirConsole.instance.SetActivePlayers ();
 	}
 
-	void Start(){
-		thrusters = new bool[numberOfPlayers];
-	}
 
-	public bool[] GetThrusters() {
+	public bool[] GetThrusters() 
+	{
 		return thrusters;
 	}
 
-	void OnDestroy () {
 
+	void OnDestroy () 
+	{
 		// unregister airconsole events on scene change
-		if (AirConsole.instance != null) {
+		if (AirConsole.instance != null) 
+		{
 			AirConsole.instance.onMessage -= OnMessage;
 		}
 	}
+
+
+
 #endif
+
+
+
 }

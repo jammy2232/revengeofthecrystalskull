@@ -23,7 +23,7 @@ public class Loader : MonoBehaviour {
 		{
 			loading.text = "";
 			FindObjectOfType<CameraFollow> ().enabled = true;
-			FindObjectOfType<AirConsoleLogic> ().enabled = true;
+			FindObjectOfType<GameManager> ().Pause(false);
 			this.enabled = false;
 		}
 

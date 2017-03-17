@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+	public Text uiText;
+
+	AirConsoleLogic airConsole;
 	private ConduitController[] conduits;
 	private ExhaustPort[] exhausts;
 	private CrystalSkull skull;
@@ -68,6 +71,15 @@ public class GameManager : MonoBehaviour {
 			EspaceState = true;
 		}
 
+		if (airConsole.AirConsoleReady () && pause == false)
+		{
+			uiText.text = "";
+		}
+		else
+		{
+			uiText.text = "Waiting for more players!";
+		}
+
 	}
 
 	void OpenAllAndRun()
@@ -121,6 +133,7 @@ public class GameManager : MonoBehaviour {
 
 	private void GetObjectReferences()
 	{
+		airConsole = FindObjectOfType<AirConsoleLogic>();
 		conduits = FindObjectsOfType<ConduitController> ();
 		exhausts = FindObjectsOfType<ExhaustPort> ();
 		launchers = FindObjectsOfType<missleLauncher> ();

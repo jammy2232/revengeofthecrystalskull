@@ -22,6 +22,8 @@ public class Flame : MonoBehaviour {
 
 		direction.Normalize ();
 
-		other.gameObject.GetComponent<Rigidbody> ().velocity = -direction * 5.0f;
+		if (other.tag == "Player") {
+			other.gameObject.GetComponent<Rigidbody> ().velocity = -direction * 5.0f;
+		}
 	}
 }

@@ -62,52 +62,43 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			airConsoleReference = FindObjectOfType<GameManager> ().GetComponent<AirConsoleLogic> ();
 		}
-
-
-
+			
 		// Thrusters Controls
-		if (Input.GetKeyDown (KeyCode.D) || userControls [3]) { // Player Four
-			thruster1Force = thrusterDefaultForce;
-			thruster1Rocket.Play();
-		} else if(Input.GetKeyUp(KeyCode.D)) {
-			thruster1Force = 0;
+		if (Input.GetKey(KeyCode.D) || userControls [3]) { // Player Four
+			playerShip.AddRelativeForce (thruster1Dir * thrusterDefaultForce);
+			thruster1Rocket.Play ();
+		} 
+		else 
+		{
 			thruster1Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.S) || userControls [2]) { // Player Three
-			thruster2Force = thrusterDefaultForce;
+		if (Input.GetKey (KeyCode.W) || userControls [2]) { // Player Three
+			playerShip.AddRelativeForce (thruster2Dir * thrusterDefaultForce);
 			thruster2Rocket.Play();
-		} else if(Input.GetKeyUp(KeyCode.S)) {
-			thruster2Force = 0;
+		} 
+		else 
+		{
 			thruster2Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.A) || userControls [1]) { // Player Two
-			thruster3Force = thrusterDefaultForce;
+		if (Input.GetKey(KeyCode.A) || userControls [1]) { // Player Two
+			playerShip.AddRelativeForce (thruster3Dir * thrusterDefaultForce);
 			thruster3Rocket.Play();
-		} else if(Input.GetKeyUp(KeyCode.A)) {
-			thruster3Force = 0;
+		} 
+		else 
+		{
 			thruster3Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.W) || userControls [0]) { // Player One
-			thruster4Force = thrusterDefaultForce;
+		if (Input.GetKey (KeyCode.S) || userControls [0]) { // Player One
+			playerShip.AddRelativeForce (thruster4Dir * thrusterDefaultForce);
 			thruster4Rocket.Play();
-		} else if(Input.GetKeyUp(KeyCode.W)) {
-			thruster4Force = 0;
+		} 
+		else 
+		{
 			thruster4Rocket.Stop();
 		}
-
-	}
-
-	// Update is called once per frame
-	void FixedUpdate () 
-	{
-
-		playerShip.AddRelativeForce (thruster1Dir * thruster1Force);
-		playerShip.AddRelativeForce (thruster2Dir * thruster2Force);
-		playerShip.AddRelativeForce (thruster3Dir * thruster3Force);
-		playerShip.AddRelativeForce (thruster4Dir * thruster4Force);
 
 	}
 

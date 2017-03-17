@@ -69,23 +69,19 @@
     }
 
     .button {
+      background-image: url(ThrusterButtonRed.png);
+      background-size: contain;
+      background-repeat: no-repeat;
       display: inline-block;
-      height: 45%;
-      width: 98%;
+      padding: 50%;
+      height: 100%;
+      width: 100%;
       background-color: #222;
       position: relative;
     }
 
     .button:active {
       background-color: #424242;
-    }
-
-    .button_label {
-      position: absolute;
-      left: 0px;
-      width: 100%;
-      top: 50%;
-      margin-top: -6px;
     }
 
     #player_id {
@@ -99,11 +95,9 @@
   </style>
 </head>
 <body onload="init()">
-  <div style="height: 25%"></div>
-  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)">
-    <div class="button_label">GO!</div>
-  </div>
-  <div style="height: 25%"></div>
+  <div style="height: 0%"></div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)"></div>
+  <div style="height: 0%"></div>
   <div id="player_id"></div>
 </body>
 </html>

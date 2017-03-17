@@ -8,7 +8,6 @@ using Newtonsoft.Json.Linq;
 public class AirConsoleLogic : MonoBehaviour {
 
 	public int numberOfPlayers;
-	public Text uiText;
 
 	private bool[] thrusters;
 
@@ -16,6 +15,7 @@ public class AirConsoleLogic : MonoBehaviour {
 
 	void Awake () 
 	{
+		DontDestroyOnLoad(this);
 		
 		AirConsole.instance.onMessage += OnMessage;
 		AirConsole.instance.onConnect += OnConnect;
@@ -30,12 +30,10 @@ public class AirConsoleLogic : MonoBehaviour {
 
 		if (AirConsole.instance.GetControllerDeviceIds ().Count < numberOfPlayers)
 		{
-			uiText.text = "AWAITING FOR MORE PLAYERS";
 			FindObjectOfType<GameManager> ().Pause (true);
 		} 
 		else
 		{
-			uiText.text = "";
 			FindObjectOfType<GameManager> ().Pause (false);
 		}
 
@@ -59,13 +57,11 @@ public class AirConsoleLogic : MonoBehaviour {
 
 		if (AirConsole.instance.GetControllerDeviceIds ().Count < numberOfPlayers)
 		{
-			uiText.text = "AWAITING FOR MORE PLAYERS";
-			FindObjectOfType<GameManager> ().Pause (true);
+			GameManagerPause(true);
 		} 
 		else 
 		{
-			uiText.text = "";
-			FindObjectOfType<GameManager> ().Pause (false);
+			GameManagerPause(false);
 			StartGame ();
 		}
 
@@ -89,15 +85,13 @@ public class AirConsoleLogic : MonoBehaviour {
 		{
 			if (AirConsole.instance.GetControllerDeviceIds ().Count >= numberOfPlayers) 
 			{
-				FindObjectOfType<GameManager> ().Pause (false);
-				uiText.text = "";
+				GameManagerPause(false);
 				StartGame ();
 			}
 			else 
 			{
-				FindObjectOfType<GameManager> ().Pause (true);
+				GameManagerPause(true);
 				AirConsole.instance.SetActivePlayers (0);
-				uiText.text = "PLAYER LEFT! AWAITING MORE PLAYERS";
 			}
 		}
 	}
@@ -139,6 +133,21 @@ public class AirConsoleLogic : MonoBehaviour {
 		{
 			AirConsole.instance.onMessage -= OnMessage;
 		}
+	}
+
+	void GameManagerPause(bool pause)
+	{
+		GameManager game = FindObjectOfType<GameManager>();
+
+		if(game != null)
+		{
+			game.Pause(pause);
+		}
+	}
+
+	public bool AirConsoleReady ()
+	{
+		return AirConsole.instance.GetControllerDeviceIds ().Count >= numberOfPlayers;
 	}
 
 

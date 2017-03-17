@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour {
 		thruster3Rocket.Stop();
 		thruster4Rocket.Stop();
 
-		airConsoleReference = FindObjectOfType<GameManager> ().GetComponent<AirConsoleLogic> ();
+		airConsoleReference = FindObjectOfType<AirConsoleLogic> ();
 
 		if (airConsoleReference != null)
 		{

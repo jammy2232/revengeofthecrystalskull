@@ -89,11 +89,13 @@ public class AirConsoleLogic : MonoBehaviour {
 		{
 			if (AirConsole.instance.GetControllerDeviceIds ().Count >= numberOfPlayers) 
 			{
+				FindObjectOfType<GameManager> ().Pause (false);
 				uiText.text = "";
 				StartGame ();
 			}
 			else 
 			{
+				FindObjectOfType<GameManager> ().Pause (true);
 				AirConsole.instance.SetActivePlayers (0);
 				uiText.text = "PLAYER LEFT! AWAITING MORE PLAYERS";
 			}

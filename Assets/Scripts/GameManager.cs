@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	private ExhaustDeactivate[] exhaustButtons;
 	private missleLauncher[] launchers;
 	private IntakeFan[] fans;
-	private GameObject[] pauseList;
+	public GameObject[] pauseList;
 
 	private Text gameTimerText;
 	private float gameTimer = 0.0f;
@@ -105,6 +105,9 @@ public class GameManager : MonoBehaviour {
 
 		for (int i = 0; i < pauseList.Length; i++)
 		{
+			if (pauseList [i] == null) {
+				Debug.Log("iPosition" + i);
+			}
 			if (pauseList [i].tag != "GAMEMANAGER" && pauseList [i].tag != "UI" && pauseList[i].tag != "MainCamera")
 			{
 				pauseList [i].SetActive (!pause);

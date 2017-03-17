@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	private ExhaustDeactivate[] exhaustButtons;
 	private missleLauncher[] launchers;
 	private IntakeFan[] fans;
-	public GameObject[] pauseList;
+	private GameObject[] pauseList;
 
 	private Text gameTimerText;
 	private float gameTimer = 0.0f;
@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
 		GetObjectReferences ();
 
 		pauseList = FindObjectsOfType<GameObject> ();
+
+		Pause (true);
 
 		// getting the game timer - is there a more efficient way. 
 		Text[] temp = FindObjectsOfType<Text>();

@@ -21,20 +21,6 @@ public class PlayerMovement : MonoBehaviour {
 	private float thruster3Force;
 	private float thruster4Force;
 
-	//public float RotatorDefaultForce;
-
-	//public ParticleSystem RotatorRocketL1;
-	//public ParticleSystem RotatorRocketL2;
-	//public ParticleSystem RotatorRocketR1;
-	//public ParticleSystem RotatorRocketR2;
-
-	//private Vector3 RotatorDir;
-
-	//public Rigidbody Rotator1;
-	//public Rigidbody Rotator2;
-
-	//private float Rotator1Force;
-	//private float Rotator2Force;
 
 	// Use this for initialization
 	void Start () {
@@ -53,18 +39,6 @@ public class PlayerMovement : MonoBehaviour {
 		thruster2Rocket.Stop();
 		thruster3Rocket.Stop();
 		thruster4Rocket.Stop();
-
-		/*
-		RotatorDir = new Vector3(0,1,0);
-
-		Rotator1Force = 0.0f;
-		Rotator2Force = 0.0f;
-
-		RotatorRocketL1.Stop();
-		RotatorRocketL2.Stop();
-		RotatorRocketR1.Stop();
-		RotatorRocketR2.Stop();
-		*/
 	
 	}
 
@@ -104,47 +78,16 @@ public class PlayerMovement : MonoBehaviour {
 			thruster4Rocket.Stop();
 		}
 
-		// Rotator Controls
-		/*
-		if (Input.GetKeyDown (KeyCode.Q)) {
-			Rotator1Force = RotatorDefaultForce;
-			Rotator2Force = -RotatorDefaultForce;
-			RotatorRocketL1.Play();
-			RotatorRocketL2.Play();
-		} else if(Input.GetKeyUp(KeyCode.Q)) {
-			Rotator1Force = 0.0f;
-			Rotator2Force = 0.0f;
-			RotatorRocketL1.Stop();
-			RotatorRocketL2.Stop();
-		}
-
-
-		if (Input.GetKeyDown (KeyCode.E)) {
-			Rotator1Force = -RotatorDefaultForce;
-			Rotator2Force = RotatorDefaultForce;
-			RotatorRocketR1.Play();
-			RotatorRocketR2.Play();
-		} else if(Input.GetKeyUp(KeyCode.E)) {
-			Rotator1Force = 0.0f;
-			Rotator2Force = 0.0f;
-			RotatorRocketR1.Stop();
-			RotatorRocketR2.Stop();
-		}
-
-		*/
-
 	}
 
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate () 
+	{
 
 		playerShip.AddRelativeForce (thruster1Dir * thruster1Force);
 		playerShip.AddRelativeForce (thruster2Dir * thruster2Force);
 		playerShip.AddRelativeForce (thruster3Dir * thruster3Force);
 		playerShip.AddRelativeForce (thruster4Dir * thruster4Force);
-
-		// Rotator1.AddRelativeForce (RotatorDir * Rotator1Force);
-		// Rotator2.AddRelativeForce (RotatorDir * Rotator2Force);
 
 	}
 

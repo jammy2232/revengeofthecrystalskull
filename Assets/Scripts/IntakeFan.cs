@@ -6,19 +6,27 @@ public class IntakeFan : MonoBehaviour {
 
 	[Range(-1.0f,1.0f)]
 	public float fanRotation;
+	private bool paused;
 
 	// Use this for initialization
 	void Start () {
 
+		paused = false;
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-
-		transform.Rotate (new Vector3 (0, fanRotation, 0));
-
+		if (paused == false) 
+		{
+			transform.Rotate (new Vector3 (0, fanRotation, 0));
+		}
 		
+	}
+
+	public void pause(bool state)
+	{
+		paused = state;
 	}
 }

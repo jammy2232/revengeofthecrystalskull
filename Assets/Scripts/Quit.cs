@@ -19,6 +19,7 @@ public class Quit : MonoBehaviour {
 			temp = needMorePlayers.text; 
 			needMorePlayers.text = "PRESS ESC AGAIN TO QUIT OR SPACE TO CONTINUE";
 			quit = true;
+			FindObjectOfType<GameManager> ().Pause (true);
 		}
 
 		if(Input.GetKeyDown(KeyCode.Escape) == true && quit == true)
@@ -30,7 +31,7 @@ public class Quit : MonoBehaviour {
 		{
 			quit = false;
 			needMorePlayers.text = temp;
-
+			FindObjectOfType<GameManager> ().Pause (false);
 		}
 		
 	}

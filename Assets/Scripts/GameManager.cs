@@ -13,24 +13,22 @@ public class GameManager : MonoBehaviour {
 	private Button[] conduitButtons;
 	private ExhaustDeactivate[] exhaustButtons;
 	private missleLauncher[] launchers;
+	private IntakeFan[] fans;
+	private GameObject[] pauseList;
 
 	private Text gameTimerText;
 	private float gameTimer = 0.0f;
 
 	private bool EspaceState = false;
-
+	private bool pause;
 
 	// Use this for initialization
 	void Start ()
 	{
 
-		conduits = FindObjectsOfType<ConduitController> ();
-		exhausts = FindObjectsOfType<ExhaustPort> ();
-		launchers = FindObjectsOfType<missleLauncher> ();
-		skull = FindObjectOfType<CrystalSkull> ();
-		startEnd = FindObjectOfType<StartEndArea> ();
-		conduitButtons = FindObjectsOfType<Button> ();
-		exhaustButtons = FindObjectsOfType<ExhaustDeactivate> ();
+		GetObjectReferences ();
+
+		pauseList = FindObjectsOfType<GameObject> ();
 
 		// getting the game timer - is there a more efficient way. 
 		Text[] temp = FindObjectsOfType<Text>();
@@ -46,9 +44,13 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		int milliseconds = (int)((Time.timeSinceLevelLoad*100)%100);
-		int seconds = (int)(Time.timeSinceLevelLoad%60); // seconds
-		int minutes = (int)((Time.timeSinceLevelLoad/60.0f)%60); // minutes
+		if (pause == false) {
+			gameTimer += Time.deltaTime;
+		}
+
+		int milliseconds = (int)((gameTimer*100)%100);
+		int seconds = (int)(gameTimer%60); // seconds
+		int minutes = (int)((gameTimer/60.0f)%60); // minutes
 		gameTimerText.text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
 			
 		if (skull.collected == true && startEnd.playerPresent == true)
@@ -95,5 +97,34 @@ public class GameManager : MonoBehaviour {
 		}
 			
 	}
+
+	public void Pause(bool mpause)
+	{
+
+		pause = mpause;
+
+		for (int i = 0; i < pauseList.Length; i++)
+		{
+			if (pauseList [i].tag != "GAMEMANAGER" && pauseList [i].tag != "UI" && pauseList[i].tag != "MainCamera")
+			{
+				pauseList [i].SetActive (!pause);
+			}
+		}
+
+
+	}
+
+	private void GetObjectReferences()
+	{
+		conduits = FindObjectsOfType<ConduitController> ();
+		exhausts = FindObjectsOfType<ExhaustPort> ();
+		launchers = FindObjectsOfType<missleLauncher> ();
+		skull = FindObjectOfType<CrystalSkull> ();
+		startEnd = FindObjectOfType<StartEndArea> ();
+		conduitButtons = FindObjectsOfType<Button> ();
+		exhaustButtons = FindObjectsOfType<ExhaustDeactivate> ();
+		fans = FindObjectsOfType<IntakeFan> ();
+	}
+
 
 }

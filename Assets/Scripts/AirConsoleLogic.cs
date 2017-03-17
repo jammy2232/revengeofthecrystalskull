@@ -31,10 +31,12 @@ public class AirConsoleLogic : MonoBehaviour {
 		if (AirConsole.instance.GetControllerDeviceIds ().Count < numberOfPlayers)
 		{
 			uiText.text = "AWAITING FOR MORE PLAYERS";
+			FindObjectOfType<GameManager> ().Pause (true);
 		} 
 		else
 		{
 			uiText.text = "";
+			FindObjectOfType<GameManager> ().Pause (false);
 		}
 
 	}
@@ -58,10 +60,12 @@ public class AirConsoleLogic : MonoBehaviour {
 		if (AirConsole.instance.GetControllerDeviceIds ().Count < numberOfPlayers)
 		{
 			uiText.text = "AWAITING FOR MORE PLAYERS";
+			FindObjectOfType<GameManager> ().Pause (true);
 		} 
 		else 
 		{
 			uiText.text = "";
+			FindObjectOfType<GameManager> ().Pause (false);
 			StartGame ();
 		}
 

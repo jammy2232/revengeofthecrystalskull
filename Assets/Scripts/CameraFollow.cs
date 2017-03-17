@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
 
-	TESTPLAYER temp;
+	PlayerMovement player;
 	Vector3 cameraPos;
 
 	// Use this for initialization
 	void Start () {
 
-		temp = FindObjectOfType<TESTPLAYER> ();
-		transform.position = temp.transform.position + new Vector3 (0.0f, 0.0f, -10.0f);
-		cameraPos = temp.transform.position - transform.position;
+		player = FindObjectOfType<PlayerMovement> ();
+		transform.position = player.transform.position + new Vector3 (0.0f, 0.0f, -10.0f);
+		cameraPos = player.transform.position - transform.position;
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		transform.position = temp.transform.position - cameraPos;
+		transform.position = player.transform.position - cameraPos;
 		
 	}
 }

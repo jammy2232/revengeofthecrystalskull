@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour {
 	private float thruster3Force;
 	private float thruster4Force;
 
+	AirConsoleLogic airConsoleReference;
+	private bool[] userControls;
+
 
 	// Use this for initialization
 	void Start () {
@@ -39,14 +42,31 @@ public class PlayerMovement : MonoBehaviour {
 		thruster2Rocket.Stop();
 		thruster3Rocket.Stop();
 		thruster4Rocket.Stop();
+
+		airConsoleReference = FindObjectOfType<GameManager> ().GetComponent<AirConsoleLogic> ();
+
+		if (airConsoleReference != null)
+		{
+			userControls = airConsoleReference.GetThrusters ();
+		}
 	
 	}
 
 	// Update is called once per frame
 	void Update () {
 
+		// Getting the thruster details again - I don't know why we have to do this. If I don't reference to userControls[1] doesn't work - This is a strange bug perhaps. 
+		userControls = airConsoleReference.GetThrusters ();
+
+		if (airConsoleReference == null) // check if the airconsole is
+		{
+			airConsoleReference = FindObjectOfType<GameManager> ().GetComponent<AirConsoleLogic> ();
+		}
+
+
+
 		// Thrusters Controls
-		if (Input.GetKeyDown (KeyCode.D)) {
+		if (Input.GetKeyDown (KeyCode.D) || userControls [3]) { // Player Four
 			thruster1Force = thrusterDefaultForce;
 			thruster1Rocket.Play();
 		} else if(Input.GetKeyUp(KeyCode.D)) {
@@ -54,7 +74,7 @@ public class PlayerMovement : MonoBehaviour {
 			thruster1Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.S)) {
+		if (Input.GetKeyDown (KeyCode.S) || userControls [2]) { // Player Three
 			thruster2Force = thrusterDefaultForce;
 			thruster2Rocket.Play();
 		} else if(Input.GetKeyUp(KeyCode.S)) {
@@ -62,7 +82,7 @@ public class PlayerMovement : MonoBehaviour {
 			thruster2Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.A)) {
+		if (Input.GetKeyDown (KeyCode.A) || userControls [1]) { // Player Two
 			thruster3Force = thrusterDefaultForce;
 			thruster3Rocket.Play();
 		} else if(Input.GetKeyUp(KeyCode.A)) {
@@ -70,7 +90,7 @@ public class PlayerMovement : MonoBehaviour {
 			thruster3Rocket.Stop();
 		}
 
-		if (Input.GetKeyDown (KeyCode.W)) {
+		if (Input.GetKeyDown (KeyCode.W) || userControls [0]) { // Player One
 			thruster4Force = thrusterDefaultForce;
 			thruster4Rocket.Play();
 		} else if(Input.GetKeyUp(KeyCode.W)) {

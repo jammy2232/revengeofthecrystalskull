@@ -18,14 +18,19 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(player == null)
+		if (player == null)
 		{
 			player = FindObjectOfType<PlayerMovement> ();
-			transform.position = player.transform.position + new Vector3 (0.0f, 0.0f, -10.0f);
-			cameraPos = player.transform.position - transform.position;
+			if (player != null)
+			{
+				transform.position = player.transform.position + new Vector3 (0.0f, 0.0f, -10.0f);
+				cameraPos = player.transform.position - transform.position;
+			}
+		} 
+		else
+		{
+			transform.position = player.transform.position - cameraPos;
 		}
-
-		transform.position = player.transform.position - cameraPos;
 		
 	}
 }

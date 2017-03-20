@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using NDream.AirConsole;
+using Newtonsoft.Json.Linq;
 
 public class GameManager : MonoBehaviour {
 
@@ -25,6 +27,9 @@ public class GameManager : MonoBehaviour {
 	private bool EspaceState = false;
 	private bool pause;
 
+	string temp = "";
+	private bool quit = false;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -43,7 +48,6 @@ public class GameManager : MonoBehaviour {
 				gameTimerText = temp [i];
 			}
 		}
-
 	}
 
 	// Update is called once per frame
@@ -71,13 +75,39 @@ public class GameManager : MonoBehaviour {
 			EspaceState = true;
 		}
 
-		if (airConsole.AirConsoleReady () && pause == false)
+		if (airConsole.AirConsoleReady () && pause == false && quit == false)
 		{
 			uiText.text = "";
 		}
-		else
+		else if (quit == false)
 		{
-			uiText.text = "Waiting for more players!";
+			uiText.text = "WAITING FOR MORE PLAYERS!";
+		}
+
+
+		if(Input.GetKeyUp(KeyCode.Escape) == true && quit == false)
+		{
+			temp = uiText.text; 
+			uiText.text = "PRESS ESC AGAIN TO QUIT OR SPACE TO CONTINUE";
+			quit = true;
+			Pause (true);
+		}
+
+		if(Input.GetKeyDown(KeyCode.Escape) == true && quit == true)
+		{
+			SceneManager.LoadScene ("MainMenu", LoadSceneMode.Single);
+		}
+
+		if(Input.GetKeyDown(KeyCode.Space) == true && quit == true)
+		{
+			quit = false;
+			uiText.text = temp;
+
+			if (AirConsole.instance.GetControllerDeviceIds ().Count >= airConsole.numberOfPlayers)
+			{
+				Pause (false);
+			}
+
 		}
 
 	}

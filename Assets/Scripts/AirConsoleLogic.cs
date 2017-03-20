@@ -16,6 +16,11 @@ public class AirConsoleLogic : MonoBehaviour {
 	void Awake () 
 	{
 		DontDestroyOnLoad(this);
+
+		if (FindObjectsOfType<AirConsoleLogic>().Length  > 1)
+		{
+			Destroy (gameObject);
+		}
 		
 		AirConsole.instance.onMessage += OnMessage;
 		AirConsole.instance.onConnect += OnConnect;

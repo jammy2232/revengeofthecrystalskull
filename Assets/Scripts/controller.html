@@ -36,27 +36,49 @@
         div.innerHTML = "This is a 4 player game";
       } else if (player_number == 0) {
         div.innerHTML = "You are player 1";
+        showView('player1');
       } else if (player_number == 1) {
         div.innerHTML = "You are player 2";
+        showView('player2');
       } else if (player_number == 2) {
         div.innerHTML = "You are player 3";
+        showView('player3');
       } else if (player_number == 3) {
         div.innerHTML = "You are player 4";
+        showView('player4');
       };
     }
 
     /**
-     * Tells the screen to move the paddle of this player.
-     * @param amount
+     * Tells the screen to turn on the thruster of this player.
+     * @param state
      */
     function move(state) {
       airconsole.message(AirConsole.SCREEN, {move: state})
     }
-  
+
+    /**
+     * Only show button of this player.
+     * @param id
+     */
+    var showView = function(id) {
+      var view = document.getElementById(id);
+      var all_views = document.querySelectorAll('button');
+
+      // Hide all containers
+      for (var i=0; i<all_views.length; i++) {
+        all_views[i].style.display = 'none';
+      }
+
+      // Show container
+      view.style.display = 'inline-block';
+    };
+
   </script>
   <style type="text/css">
     @font-face {
-      font-family: 'Arial';
+      font-family: 'PressStart2P';
+      src: url('PressStart2P.ttf');
     }
 
     html, body {
@@ -69,35 +91,54 @@
     }
 
     .button {
-      background-image: url(ThrusterButtonRed.png);
       background-size: contain;
       background-repeat: no-repeat;
-      display: inline-block;
-      padding: 50%;
-      height: 100%;
+      display: none;
+      height: 65%;
       width: 100%;
-      background-color: #222;
-      position: relative;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translate(-50%, -50%); /* IE 9 */
+      -webkit-transform: translate(-50%, -50%); /* Safari */
+      transform: translate(-50%, -50%);
     }
 
     .button:active {
       background-color: #424242;
     }
 
+    #player1 {
+      background-image: url(ThrusterButtonRed.png);
+    }
+
+    #player2 {
+      background-image: url(ThrusterButtonBlue.png);
+    }
+
+    #player3 {
+      background-image: url(ThrusterButtonGreen.png);
+    }
+
+    #player4 {
+      background-image: url(ThrusterButtonYellow.png);
+    }
+
     #player_id {
+      color: white;
       position: absolute;
+      left: 50%;
       top: 50%;
-      left: 0%;
-      width: 100%;
-      margin-top: -8px;
-      color: #777;
+      -ms-transform: translate(-50%, -50%); /* IE 9 */
+      -webkit-transform: translate(-50%, -50%); /* Safari */
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
 <body onload="init()">
-  <div style="height: 0%"></div>
-  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)"></div>
-  <div style="height: 0%"></div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player1></div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player2></div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player3></div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player4></div>
   <div id="player_id"></div>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class MusicManager : MonoBehaviour {
 	void Update () {
 
 		// If valid songs exist and the player has stopped
-		if (mAudioPlayer.isPlaying == false && mIndex != null)
+		if (mAudioPlayer.isPlaying == false && song[mIndex] != null)
 		{
 
 			// Change the track

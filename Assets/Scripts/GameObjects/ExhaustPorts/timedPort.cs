@@ -9,6 +9,7 @@ public class timedPort : MonoBehaviour {
 	float elapsedTime;
 	public float waitTime;
 	bool on;
+	bool endgamestate;
 
 	// Use this for initialization
 	void Start () {
@@ -17,20 +18,25 @@ public class timedPort : MonoBehaviour {
 		flameBody = (GetComponentsInChildren<BoxCollider> ())[1]; // Indexed as 1 to get the first child and not parent
 		elapsedTime = 0;
 		on = false;
+		endgamestate = false;
 	}
 
 	void Update(){
-		if (elapsedTime > waitTime) {
-			elapsedTime = 0;
-			if (on) {
-				on = false;
-				turnExhaustOff ();
-			} else {
-				on = true;
-				turnExhaustOn ();
+		if (endgamestate == false) {
+			if (elapsedTime > waitTime) {
+				elapsedTime = 0;
+				if (on) {
+					on = false;
+					turnExhaustOff ();
+				} else {
+					on = true;
+					turnExhaustOn ();
+				}
 			}
+			elapsedTime += Time.deltaTime;
+		} else {
+			turnExhaustOff ();
 		}
-		elapsedTime += Time.deltaTime;
 	}
 
 	public void turnExhaustOn () 
@@ -46,6 +52,11 @@ public class timedPort : MonoBehaviour {
 		var test = flames.emission;
 		test.enabled = false;	
 		flameBody.enabled = false;
+	}
+
+	public void EndGameState()
+	{
+		endgamestate = true;
 	}
 
 }

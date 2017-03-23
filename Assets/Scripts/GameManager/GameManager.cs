@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 	private ExhaustButton[] exhaustButtons;// Add a script to stop coroutines.
 	private missleLauncher[] launchers;
 	private IntakeFan[] fans;
+	private timedPort[] timedports;
 	private GameObject[] pauseList;
 
 	private Text gameTimerText;
@@ -141,6 +142,11 @@ public class GameManager : MonoBehaviour {
 			exhaustButtons [i].StopAllCoroutines ();
 			exhaustButtons [i].GoGreen ();
 		}
+
+		for(int i = 0; i < timedports.Length; i++)
+		{
+			timedports [i].EndGameState ();
+		}
 			
 	}
 
@@ -174,6 +180,7 @@ public class GameManager : MonoBehaviour {
 		timeConduitButtons = FindObjectsOfType<TimerConduitButton> ();
 		exhaustButtons = FindObjectsOfType<ExhaustButton> ();
 		fans = FindObjectsOfType<IntakeFan> ();
+		timedports = FindObjectsOfType < timedPort> ();
 	}
 
 

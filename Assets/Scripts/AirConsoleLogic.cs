@@ -114,6 +114,7 @@ public class AirConsoleLogic : MonoBehaviour {
 
 		if (active_player != -1) // Check it's a valid player?
 		{
+			Debug.Log (active_player + " moved press");
 			thrusters[active_player] = (bool)data["move"];
 		}
 	}

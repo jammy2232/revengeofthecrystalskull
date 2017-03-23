@@ -7,6 +7,7 @@ public class Debris : MonoBehaviour {
 	// Randomly spins debris - effect only
 
 	Vector3 direction;
+	public float rotateSpeed;
 
 	void Start()
 	{
@@ -14,6 +15,6 @@ public class Debris : MonoBehaviour {
 	}
 
 	void Update () {
-		transform.RotateAround (transform.position, direction, 90.0f*Time.deltaTime);
+		transform.RotateAround (transform.position, direction, (90.0f*Time.deltaTime)*rotateSpeed);
 	}
 }

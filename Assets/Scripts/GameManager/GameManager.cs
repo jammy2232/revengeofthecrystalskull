@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 	private bool pause;
 
 	string temp = "";
+	string roundTime = "";
 	private bool quit = false;
 
 	// Use this for initialization
@@ -61,11 +62,13 @@ public class GameManager : MonoBehaviour {
 		int milliseconds = (int)((gameTimer*100)%100);
 		int seconds = (int)(gameTimer%60); // seconds
 		int minutes = (int)((gameTimer/60.0f)%60); // minutes
-		gameTimerText.text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
+		roundTime = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
+		gameTimerText.text = roundTime;
 			
 		if (skull.collected == true && startEnd.playerPresent == true)
 		{
 			// End State
+			FindObjectOfType<ScoreManager> ().time = roundTime;
 			SceneManager.LoadScene("EndGame");
 
 		}

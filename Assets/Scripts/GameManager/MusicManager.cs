@@ -13,15 +13,17 @@ public class MusicManager : MonoBehaviour {
 
 		DontDestroyOnLoad (this);
 
-	}
-
-		/*
 
 		if (FindObjectsOfType<MusicManager> ().Length > 1)
 		{
 			Destroy (gameObject);
 		}
-			
+
+
+	}
+
+	/*	
+
 		// Get the audio player reference
 		mAudioPlayer = gameObject.GetComponent<AudioSource> ();
 		mIndex = 0;

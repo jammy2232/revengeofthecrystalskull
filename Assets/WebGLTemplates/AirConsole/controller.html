@@ -35,16 +35,16 @@
       } else if (player_number == undefined) {
         div.innerHTML = "This is a 4 player game";
       } else if (player_number == 0) {
-        div.innerHTML = "You are player 1";
+        div.innerHTML = "";
         showView('player1');
       } else if (player_number == 1) {
-        div.innerHTML = "You are player 2";
+        div.innerHTML = "";
         showView('player2');
       } else if (player_number == 2) {
-        div.innerHTML = "You are player 3";
+        div.innerHTML = "";
         showView('player3');
       } else if (player_number == 3) {
-        div.innerHTML = "You are player 4";
+        div.innerHTML = "";
         showView('player4');
       };
     }
@@ -91,36 +91,55 @@
     }
 
     .button {
+      background-position: center;
       background-size: contain;
       background-repeat: no-repeat;
       display: none;
-      height: 65%;
+      height: 100%;
       width: 100%;
       position: absolute;
+      left: 50%;
       top: 50%;
       -ms-transform: translate(-50%, -50%); /* IE 9 */
       -webkit-transform: translate(-50%, -50%); /* Safari */
       transform: translate(-50%, -50%);
     }
 
-    .button:active {
-      background-color: #424242;
+    .player_text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -ms-transform: translate(-50%, -50%); /* IE 9 */
+      -webkit-transform: translate(-50%, -50%); /* Safari */
+      transform: translate(-50%, -50%);
     }
 
     #player1 {
       background-image: url(ThrusterButtonRed.png);
     }
+    #player1:active {
+      background-image: url(ThrusterButtonRedPressed.png);
+    }
 
-    #player2 {
+    #player2{
       background-image: url(ThrusterButtonBlue.png);
+    }
+    #player2:active {
+      background-image: url(ThrusterButtonBluePressed.png);
     }
 
     #player3 {
       background-image: url(ThrusterButtonGreen.png);
     }
+    #player3:active {
+      background-image: url(ThrusterButtonGreenPressed.png);
+    }
 
     #player4 {
       background-image: url(ThrusterButtonYellow.png);
+    }
+    #player4:active {
+      background-image: url(ThrusterButtonYellowPressed.png);
     }
 
     #player_id {
@@ -135,10 +154,18 @@
   </style>
 </head>
 <body onload="init()">
-  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player1></div>
-  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player2></div>
-  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player3></div>
-  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player4></div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player1>
+    <div class=player_text>Player 1</div>
+  </div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player2>
+    <div class=player_text>Player 2</div>
+  </div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player3>
+    <div class=player_text>Player 3</div>
+  </div>
+  <div class=button ontouchstart="move(true)" ontouchend="move(false)" onmousedown="move(true)" onmouseup="move(false)" id=player4>
+    <div class=player_text>Player 4</div>
+  </div>
   <div id="player_id"></div>
 </body>
 </html>

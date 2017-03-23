@@ -20,7 +20,7 @@ public class IntakeFan : MonoBehaviour {
 
 		if (paused == false) 
 		{
-			transform.Rotate (new Vector3 (0, fanRotation, 0));
+			transform.Rotate (new Vector3 (0, 0, fanRotation));
 		}
 		
 	}

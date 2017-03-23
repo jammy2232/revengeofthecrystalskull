@@ -13,6 +13,10 @@ public class MusicManager : MonoBehaviour {
 
 		DontDestroyOnLoad (this);
 
+	}
+
+		/*
+
 		if (FindObjectsOfType<MusicManager> ().Length > 1)
 		{
 			Destroy (gameObject);
@@ -55,6 +59,7 @@ public class MusicManager : MonoBehaviour {
 		}
 	
 	}
+*/
 
 }
 
